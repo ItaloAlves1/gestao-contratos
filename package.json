@@ -1,0 +1,6 @@
+{
+  "name": "gestao-contratos",
+  "version": "1.0.0",
+  "description": "Sistema de gestão de contratos com IA para UPA e Hospital",
+  "private": true
+}

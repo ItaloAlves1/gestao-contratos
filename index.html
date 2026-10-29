@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestão de Contratos - UPA e Hospital</title>
+    <link rel="stylesheet" href="css/style.css">
+    <!-- pdf.js para extrair texto de PDFs -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.8.69/pdf.min.js"></script>
+    <!-- Supabase JS via CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+
+<header>
+    <div class="header-content">
+        <div class="logo">
+            <div class="logo-icon">📄</div>
+            <div>Gestão de Contratos</div>
+        </div>
+        <div style="font-size: 14px; color: #64748b;">
+            Sistema de vencimento &bull; UPA / Hospital
+        </div>
+    </div>
+</header>
+
+<div class="container">
+
+    <!-- Cards de resumo -->
+    <div class="stats-grid">
+        <div class="stat-card">
+            <h3>Total de Contratos</h3>
+            <div class="valor" id="statTotal">-</div>
+            <div class="sub">Cadastrados no sistema</div>
+        </div>
+        <div class="stat-card">
+            <h3>Vencendo em 30 dias</h3>
+            <div class="valor" id="statVencendo" style="color: var(--warning);">-</div>
+            <div class="sub">Atenção necessária</div>
+        </div>
+        <div class="stat-card">
+            <h3>Urgente (≤ 7 dias)</h3>
+            <div class="valor" id="statUrgente" style="color: var(--danger);">-</div>
+            <div class="sub">Precisa de ação imediata</div>
+        </div>
+        <div class="stat-card">
+            <h3>Última atualização</h3>
+            <div class="valor" id="statUltimo" style="font-size: 20px;">-</div>
+            <div class="sub">Dashboard atualizado</div>
+        </div>
+    </div>
+
+    <!-- Grid principal -->
+    <div class="grid-principal">
+
+        <!-- Coluna esquerda: Upload -->
+        <div class="card">
+            <h2>📎 Anexar Novo Contrato</h2>
+
+            <div class="area-drop" id="areaDrop" onclick="document.getElementById('inputArquivo').click()">
+                <p>Clique ou arraste o contrato aqui</p>
+                <p style="font-size: 12px; color: #94a3b8; margin-top: 6px;">
+                    Aceita: PDF, PNG, JPG, JPEG
+                </p>
+            </div>
+
+            <input type="file" id="inputArquivo" accept=".pdf,.png,.jpg,.jpeg">
+
+            <button class="btn btn-primary" id="btnProcessar" disabled>
+                Anexar e Processar com IA
+            </button>
+
+            <div style="margin-top: 16px; font-size: 13px; color: #64748b; background: #f1f5f9; padding: 12px; border-radius: 8px; border: 1px solid #e2e8f0;">
+                <strong>O que a IA vai extrair:</strong><br>
+                CNPJ &bull; Nome da empresa &bull; Data de assinatura &bull; Valor mensal e anual &bull; Representante legal &bull; Telefone &bull; Tipo de serviço &bull; UPA ou Hospital &bull; Projeto &bull; Data de vencimento
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Coluna direita: Dashboard -->
+    <div class="card" style="grid-column: span 1;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+            <h2>⚠️ Contratos Vencendo (próximos 30 dias)</h2>
+            <button class="btn btn-outline" id="btnAtualizar">Atualizar</button>
+        </div>
+        <div id="listaContratos">
+            <div class="vazio">Carregando contratos...</div>
+        </div>
+    </div>
+
+</div>
+
+<!-- Toast de notificação -->
+<div id="toast" class="toast">
+    <span id="toastIcone">ℹ️</span>
+    <span id="toastCorpo">Notificação</span>
+</div>
+
+<script src="js/config.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
